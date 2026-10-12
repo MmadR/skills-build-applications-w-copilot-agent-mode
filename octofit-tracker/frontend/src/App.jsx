@@ -1,39 +1,65 @@
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, Navigate, NavLink, Route, Routes } from 'react-router-dom'
+import Activities from './components/Activities.jsx'
+import Leaderboard from './components/Leaderboard.jsx'
+import Teams from './components/Teams.jsx'
+import Users from './components/Users.jsx'
+import Workouts from './components/Workouts.jsx'
+import octofitLogo from '../../../docs/octofitapp-small.png'
 import './App.css'
+
+const sections = [
+  { label: 'Activities', path: '/activities', marker: '01' },
+  { label: 'Leaderboard', path: '/leaderboard', marker: '02' },
+  { label: 'Teams', path: '/teams', marker: '03' },
+  { label: 'Users', path: '/users', marker: '04' },
+  { label: 'Workouts', path: '/workouts', marker: '05' },
+]
 
 function App() {
   return (
-    <main className="container py-5">
-      <header className="d-flex flex-wrap align-items-center justify-content-between gap-3 border-bottom pb-3 mb-4">
-        <Link className="h3 mb-0 text-decoration-none text-dark" to="/">
-          OctoFit Tracker
+    <div className="app-shell">
+      <header className="topbar">
+        <Link className="brand" to="/activities">
+          <img src={octofitLogo} alt="" />
+          <span>OctoFit <strong>Tracker</strong></span>
         </Link>
-        <nav aria-label="Navegacao principal" className="d-flex gap-3">
-          <Link to="/">Visao geral</Link>
-          <Link to="/health">Saude da API</Link>
-        </nav>
+        <span className="tier-label"><span /> PRESENTATION TIER</span>
       </header>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <section>
-              <h1 className="h2">Acompanhe seu progresso</h1>
-              <p className="text-secondary">Sua plataforma de atividades e bem-estar.</p>
-            </section>
-          }
-        />
-        <Route
-          path="/health"
-          element={
-            <section>
-              <h1 className="h2">Saude da API</h1>
-              <p className="text-secondary">API Node.js disponivel em localhost:8000.</p>
-            </section>
-          }
-        />
-      </Routes>
-    </main>
+
+      <div className="workspace">
+        <aside className="sidebar">
+          <p className="sidebar-label">YOUR TRACKER</p>
+          <nav aria-label="Main navigation" className="section-nav">
+            {sections.map((section) => (
+              <NavLink
+                className={({ isActive }) => `section-link${isActive ? ' active' : ''}`}
+                key={section.path}
+                to={section.path}
+              >
+                <span className="section-marker">{section.marker}</span>
+                {section.label}
+              </NavLink>
+            ))}
+          </nav>
+          <div className="sidebar-footer">
+            <span className="service-indicator" />
+            <span>API workspace</span>
+          </div>
+        </aside>
+
+        <main className="content">
+          <Routes>
+            <Route path="/" element={<Navigate replace to="/activities" />} />
+            <Route path="/activities" element={<Activities />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/teams" element={<Teams />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/workouts" element={<Workouts />} />
+            <Route path="*" element={<Navigate replace to="/activities" />} />
+          </Routes>
+        </main>
+      </div>
+    </div>
   )
 }
 

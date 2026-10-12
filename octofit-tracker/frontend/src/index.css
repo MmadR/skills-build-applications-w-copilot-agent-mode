@@ -109,3 +109,38 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+:root {
+  color-scheme: light;
+  color: #26352e;
+  background: #f5f7f5;
+  font-family: 'Avenir Next', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
+  --mono: 'SFMono-Regular', Consolas, monospace;
+  --heading: 'Avenir Next', 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#root {
+  display: block;
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  margin: 0;
+  border: 0;
+  text-align: left;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}

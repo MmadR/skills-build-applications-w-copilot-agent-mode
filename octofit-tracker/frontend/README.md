@@ -7,12 +7,35 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+# OctoFit Tracker presentation tier
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+React 19 presentation app powered by Vite, React Router, and Bootstrap. It
+displays activities, leaderboard standings, teams, users, and workouts from the
+OctoFit API.
 
-## Expanding the Oxlint configuration
+## Run locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```sh
+npm install
+npm run dev
+```
 
-API runs at `https://$CODESPACE_NAME-8000.app.github.dev/` in GitHub Codespaces.
+The frontend runs on port `5173`. The API defaults to `http://localhost:8000`
+when `VITE_CODESPACE_NAME` is not set.
+
+## GitHub Codespaces
+
+Define `VITE_CODESPACE_NAME` in `octofit-tracker/frontend/.env.local` when using
+the frontend in Codespaces. It must be the Codespace name, not the full URL, so
+the app can build the API URL `https://<name>-8000.app.github.dev`.
+
+For example:
+
+```dotenv
+VITE_CODESPACE_NAME=your-codespace-name
+```
+
+Vite reads this value when it starts; restart the dev server after changing the
+file. The frontend calls `/api/activities/`, `/api/leaderboard/`, `/api/teams/`,
+`/api/users/`, and `/api/workouts/`. Collection responses may be plain arrays or
+paginated objects containing `results`, `items`, or `data` arrays.
